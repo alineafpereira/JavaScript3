@@ -18,10 +18,13 @@
 
   function createAndAppend(name, parent, options = {}) {
     const elem = document.createElement(name);
+    const nullValue = "no information in this topic";
     parent.appendChild(elem);
     Object.entries(options).forEach(([key, value]) => {
       if (key === 'text') {
         elem.textContent = value;
+      }if (value === null) {
+        elem.textContent = nullValue;
       } else {
         elem.setAttribute(key, value);
       }
@@ -30,7 +33,12 @@
   }
 
   function renderRepoDetails(repo, ul) {
-    createAndAppend('li', ul, { text: repo.name });
+    const div = createAndAppend('div', ul);
+    div.className = "divLists";
+    createAndAppend('li', div, { text: repo.name});
+    createAndAppend('li', div, { text: repo.description})
+    createAndAppend('li', div, { text: repo.forks_count});
+    createAndAppend('li', div, { text: repo.updated_at});
   }
 
   function main(url) {
@@ -47,7 +55,7 @@
       repos.forEach(repo => renderRepoDetails(repo, ul));
     });
   }
-
+ 
   const HYF_REPOS_URL =
     'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
   window.onload = () => main(HYF_REPOS_URL);
