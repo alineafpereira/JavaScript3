@@ -1,17 +1,16 @@
 (function reqListener () {
     const oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
     oReq.open("GET", "https://www.randomuser.me/api");
     oReq.send();
     console.log(oReq.response);
 
-    oReq.addEventListener('load', function (event) {
+    oReq.addEventListener('load', function() {
         const data = JSON.parse(this.response);
     
-        if(data.cod >= 400){
-            console.log(data.coord.lat);
+        if(data.status >= 400){
+            console.log("this is error!");
         } else{
-            console.log(data.coord.lat);
+            console.log(data);
         }   
     })
 })()
@@ -25,8 +24,6 @@
     console.log(response.data);
     }).catch(function (error) {
     console.log(error);
-    }).finally(function () {
-    console.log('I am always here')
     })
 })();
 

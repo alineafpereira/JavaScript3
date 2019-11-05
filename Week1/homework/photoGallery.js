@@ -1,24 +1,24 @@
-(function reqListener () {
-    const oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
-    oReq.open("GET", "https://picsum.photos/400");
-    oReq.responseType = 'json';
-    oReq.send();
+(function photo () {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://picsum.photos/400");
+    xhr.send();
 
-    (oReq.addEventListener = () => {
-        const data = JSON.parse(this.response);
+    xhr.addEventListener ('load', function () {
+        const data = JSON.parse(xhr.response);
     
-        if(data.cod >= 400){
-            console.log(data.coord.lat);
+        if(data.status >= 400){
+            console.log(data);
         }else{
-            document.body.innerHTML = data;
+            const img = document.createElement("img");
+            document.body.appendChild(img);
+            img.appendChild(data);
         }   
     })
 })()
 
 
 // using axius
-/*
+
 (function (){
     const picture = axios.get("https://picsum.photos/400")
     .then(function (response) {
@@ -29,7 +29,7 @@
     document.body.innerHTML = picture;
     })
 })();
-*/
+
 
 
 
