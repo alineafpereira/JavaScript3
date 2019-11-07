@@ -1,24 +1,20 @@
+const body = document.getElementsByTagName('body');
 (function photo () {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://picsum.photos/400");
-    xhr.send();
-
-    xhr.addEventListener ('load', function () {
-        const data = JSON.parse(xhr.response);
-    
-        if(data.status >= 400){
-            console.log(data);
+    xhr.open("GET", "https://picsum.photos/400", true);
+    xhr.onload = function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            document.getElementById('photo').setAttribute('src', xhr.responseURL);
         }else{
-            const img = document.createElement("img");
-            document.body.appendChild(img);
-            img.appendChild(data);
+            console.log(error);
         }   
-    })
+    }
+    xhr.send();
 })()
 
 
 // using axius
-
+/*
 (function (){
     const picture = axios.get("https://picsum.photos/400")
     .then(function (response) {
@@ -29,7 +25,7 @@
     document.body.innerHTML = picture;
     })
 })();
-
+*/
 
 
 

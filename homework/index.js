@@ -40,7 +40,8 @@
     const line1 = createAndAppend('tr', table)
     line1.className = "line1"
     createAndAppend('td', line1, {text: "Name:"})
-    createAndAppend('td', line1, {text: repo.name});
+    const name = createAndAppend('a', line1, {text: repo.name});
+    name.setAttribute('href', repo.html_url); //now the name of the file is a link//
     const line2 = createAndAppend('tr', table)
     line2.className = "line2"
     createAndAppend('td', line2, {text: "Description:"})

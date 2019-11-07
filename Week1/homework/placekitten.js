@@ -1,21 +1,23 @@
+'use strict';
+
 (function placekitten () {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://wwww.placekitten.com/api");
-    xhr.send();
-   
-    xhr.addEventListener = ('load', function(){
-        const data = JSON.parse(this.response);
-        if (data.status >= 400){
-            console.log(data);
+    xhr.open("GET", "https://wwww.placekitten.com/api", true);
+    xhr.onload = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            console.log(xhr.response)
         }else{
-            console.log(data);
+            console.log(error);
         }
-    })
+        
+    };
+    xhr.send();
+    
 })()
 
 
 // using axius
-
+/*
 (function (){
     axios.get("https://wwww.placekitten.com/api")
     .then(function (response) {
@@ -24,7 +26,7 @@
     console.log(error);
     })
     
-})();
+})();*/
 
 
 
