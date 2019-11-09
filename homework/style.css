@@ -1,3 +1,132 @@
-.alert-error {
-  color: red;
+body{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+.alert-error {
+  color: red; 
+  margin-left: 40px;
+  margin-right: 20px; 
+  background-color: pink;
+  height: 50px;
+  line-height: 3em;
+  padding-left: 15px;
+}
+
+#header{
+  background-color: blueviolet;
+  padding: 10px;
+  display: flex;
+}
+
+#title{
+  font-size: 20px;
+  color: white;
+  margin-left: 40px;
+  margin-right: 20px;  
+
+}
+
+#select{
+  height: 20px;
+  padding: 10px;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+ul {
+  font-size: 14px;
+  margin-right: 21px;
+  
+}
+
+li{
+  list-style-type: none;
+}
+
+.lists{
+  border: 1px solid grey;
+  width: 100%;
+  display: inline-block;
+}
+
+.labels{
+  margin-right: 7px;
+}
+
+@media only screen and (max-width: 600px) {
+  
+  .alert-error {
+    height: 25px;
+    line-height: 2em;
+    font-size: 10px;
+    
+  }
+
+  #header{
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  #title{
+    font-size: 20px;
+    color: white;
+    margin-left: 40px;
+    margin-right: 20px;  
+  
+  }
+  
+  #select{
+    height: 20px;
+    padding: 10px;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+
+  ul {
+    margin-right: 10px;
+  }
+
+  td {
+    font-size: 11px;
+  }
+  
+}
+
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  .alert-error {
+    height: 35px;
+    line-height: 2em;
+    font-size: 14px;
+  
+  }
+
+  #header{
+    font-size: 17px;
+    padding: 15px;
+  }
+
+  #title{
+    font-size: 20px;
+    color: white;
+    margin-left: 40px;
+    margin-right: 20px;  
+  
+  }
+  
+  #select{
+    height: 20px;
+    padding: 10px;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+
+  ul {
+    margin-right: 10px;
+  }
+
+  td {
+    font-size: 13px;
+  }
+   
+}
+
