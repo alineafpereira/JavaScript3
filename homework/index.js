@@ -30,7 +30,7 @@
     let table = createAndAppend('table', divSelect);
     let line1 = createAndAppend('tr', table, {class: "lines"});
     const name = createAndAppend('td', line1, {text: "Name: "});      
-    let nameData = createAndAppend('td', line1, {text: data[0].name});
+    let nameData = createAndAppend('a', line1, {text: data[0].name, href: data[0].html_url});
     let line2 = createAndAppend('tr', table, {class: "lines"});
     const description = createAndAppend('td', line2, {text: "Description: "});
     let descriptionData = createAndAppend('td', line2, {text: data[0].description});
