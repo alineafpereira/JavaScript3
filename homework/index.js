@@ -1,32 +1,14 @@
 'use strict';
 
-const options = document.getElementById("select");
-
-
 {
-  function fetchJSON(url, cb) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.responseType = 'json';
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status <= 299) {
-        cb(null, xhr.response);
-      } else {
-        cb(new Error(`Network error: ${xhr.status} - ${xhr.statusText}`));
-      }
-    };
-    xhr.onerror = () => cb(new Error('Network request failed'));
-    xhr.send();
-  }
-
   function createAndAppend(name, parent, options = {}) {
     const elem = document.createElement(name);
-    const nullValue = "no information in this topic"; /*created this condition so when this key comes empty, the default quote goes to the table */
+    const nullValue = "no information in this topic"; 
     parent.appendChild(elem);
     Object.entries(options).forEach(([key, value]) => {
       if (key === 'text') {
         elem.textContent = value;
-      }if (value === null) {
+      }if (key === null) {
         elem.textContent = nullValue;
       } else {
         elem.setAttribute(key, value);
@@ -34,42 +16,100 @@ const options = document.getElementById("select");
     });
     return elem;
   }
+  const options = document.getElementById('select');
+  const divSelect = document.getElementById('divSelect');
+  const contributorsDiv = document.getElementById('contributors');
+  //creating the options inside the select tag
+  // the first part makes the function times 10, that's why I created the table after the { braket
+  function selectOptions (data){ 
+    data.map(function(repo) {
+      createAndAppend('option', options, {text: repo.name, value: options.length})
+    })
+    //for all this below, I'm pretty sure I could create a function to make it more efficient and prettier 
+    //but I decided not to design it right now because I wanted to see the program working minimally first
+    let table = createAndAppend('table', divSelect);
+    let line1 = createAndAppend('tr', table, {class: "lines"});
+    const name = createAndAppend('td', line1, {text: "Name: "});      
+    let nameData = createAndAppend('td', line1, {text: data[0].name});
+    let line2 = createAndAppend('tr', table, {class: "lines"});
+    const description = createAndAppend('td', line2, {text: "Description: "});
+    let descriptionData = createAndAppend('td', line2, {text: data[0].description});
+    let line3 = createAndAppend('tr', table, {class: "lines"});
+    const forks = createAndAppend('td', line3, {text: "Forks: "});
+    let forksData = createAndAppend('td', line3, {text: data[0].forks_count});
+    let line4 = createAndAppend('tr', table, {class: "lines"});
+    const update = createAndAppend('td', line4, {text: "Last Update: "});
+    let updateData = createAndAppend('td', line4, {text: data[0].updated_at});
+    let url_contributors = data[0].contributors_url;
+    getContributors(url_contributors);
+    
+  
 
-  function renderRepoDetails(repo, ul) { 
-    const menuOption = createAndAppend('option', options, {text: repo.name}) //here the repo's name goes to the list of option inside select tag//
-    menuOption.addEventListener('select', () => {
-      const table = createAndAppend('table', ul);
-      table.className = "lists";
-      const line1 = createAndAppend('tr', table)
-      line1.className = "line1"
-      createAndAppend('td', line1, {text: "Name:"})
+    //when we change select, the table is filled with the correspondent index info  
+    options.addEventListener('change', () => {
+      let i = options.selectedIndex;
+      nameData.innerHTML = data[i].name;
+      descriptionData.innerHTML = data[i].description;
+      forksData.innerHTML = data[i].forks;
+      updateData.innerHTML = data[i].updated_at;
+      url_contributors = data[i].contributors_url;
+      clean(contributorsDiv); //trying to rip the first spans from the div
+      getContributors(url_contributors); //adding new contributors
       
-    }) 
-  }
-  /*Up here I tried to create a really basic structure to an addEventListener. My intention was have something that,
-   when I select the name of the project it goes to my table. After I had this working I would create the two boxes as the examples shows.
-  But is not working. I spent lots of time reviewing the content so I could learn better to modify the project but  was not enough.
-  I was hoping I could advance so much more than this but here I am stucked again. I'll keep doing and updating the pull request.
-  I am so so sorry because I am not evoluting nice.
-   */
+      })
 
-
-  function main(url) {}
-    fetchJSON(url, (err, repos) => {
-      const root = document.getElementById('root');
-      if (err) {
-        createAndAppend('div', root, {
-          text: err.message,
-          class: 'alert-error',
-        });
-        return;
+    function getContributors(url){
+  
+      fetch(url)
+      .then((resp) => resp.json())
+      .then(function(data){
+        createAndAppend('h4', contributorsDiv, {text: "Contributions"});
+        data.map(function(contributors) {
+          let contributorsList = createAndAppend('span', contributorsDiv, {class:'contributorsList'})
+          createAndAppend('img',contributorsList, {src: contributors.avatar_url, class: 'avatars'})
+          createAndAppend('a', contributorsList, {text: contributors.login, class: 'login', href: contributors.url})
+          createAndAppend('p', contributorsList, {text: contributors.contributions, class: 'contributions'})
+          
+          })
+        })
       }
-      const ul = createAndAppend('ul', root);
-      repos.forEach(repo => renderRepoDetails(repo, ul));
-    });
+    
+    //went after a function that could help me cleaning the DIV with the contributors data,
+    //so everything I select a new repo, the data that is already there goes away
+    //and we are able to createAndAppend the new ones
+    //I can apply the same function to make possible having a function to the first table as well
+    //so I createAndAppend the first option and then clean and create all over again as the select goes being selected
+    function clean(node){
+      for(let n = 0; n < node.childNodes.length; n ++){
+      let child = node.childNodes[n];
+      if(child.nodeType === 1){
+        node.removeChild(child);
+        n --;
+      }else if(child.nodeType === 1) {
+        clean(child);
+      }
+    }
   }
- 
-  const HYF_REPOS_URL =
-    'https://api.github.com/orgs/hackyourfuture/repos?per_page=10';
-  window.onload = () => main(HYF_REPOS_URL);
+
 }
+
+  const URL = 'https://api.github.com/orgs/hackyourfuture/repos?per_page=10';
+  fetch(URL)
+  .then((resp) => resp.json())
+  .then(function(data){
+      selectOptions(data);
+  
+      })
+  .catch(function(err){
+     console.error(err)
+  })
+  
+}
+    
+
+
+
+  
+ 
+
+

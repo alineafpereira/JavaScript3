@@ -10,6 +10,14 @@ body{
   height: 50px;
   line-height: 3em;
   padding-left: 15px;
+  
+}
+
+#root{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+
 }
 
 #header{
@@ -43,15 +51,75 @@ li{
   list-style-type: none;
 }
 
-.lists{
+table{
   border: 1px solid grey;
-  width: 100%;
   display: inline-block;
+  font-size: 14px;
+  width: 100%;
+}
+
+.lines{
+  height: 15px;
+  line-height: 2em;
 }
 
 .labels{
   margin-right: 7px;
 }
+
+#divSelect {
+  width: 40%;
+  margin-right: 40px;
+  margin-top: 20px;
+
+}
+
+#contributors{
+  width: 40%;
+  float: right;
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.contributorsList{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+p{
+  width: 30px;
+}
+
+h4{
+  font-style: none;
+  font-size: 13px;
+  color: grey;
+}
+
+.avatars{
+  width: 55px;
+  height: 55px;
+  margin-right: 15px;
+}
+
+.login{
+  margin-right: 30px;
+  font-size: 14px;
+  width: 20%;
+}
+
+.contributions{
+  width: 25px;
+  height: 25px;
+  background-color: grey;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  padding-top: 10px;
+  margin-left: 30%;
+}
+
 
 @media only screen and (max-width: 600px) {
   
