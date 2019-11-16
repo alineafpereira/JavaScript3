@@ -67,7 +67,7 @@
         data.map(function(contributors) {
           let contributorsList = createAndAppend('span', contributorsDiv, {class:'contributorsList'})
           createAndAppend('img',contributorsList, {src: contributors.avatar_url, class: 'avatars'})
-          createAndAppend('a', contributorsList, {text: contributors.login, class: 'login', href: contributors.url})
+          createAndAppend('a', contributorsList, {text: contributors.login, class: 'login', href: contributors.html_url})
           createAndAppend('p', contributorsList, {text: contributors.contributions, class: 'contributions'})
           
           })
