@@ -4,7 +4,7 @@
   const { Observable } = window;
 
   const makeUrl = ({ name, type }) =>
-    `https://api.github.com/${type}s/${name}/repos?per_page=100`;
+    `https://api.github.com/${type}s/${name}/repos?per_page=10`;
 
   class Model extends Observable {
     constructor(account) {

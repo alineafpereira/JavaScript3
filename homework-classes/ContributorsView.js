@@ -19,10 +19,37 @@
      * @param {Object[]} contributors An array of contributor objects
      */
     render(contributors) {
-      // TODO: replace this comment and the console.log with your own code
-      console.log('ContributorsView', contributors);
+      try {
+        this.container.innerHTML = '';
+        createAndAppend('h4', this.container, { text: 'Contributions' });
+        const contributorsList = createAndAppend('div', this.container, {
+          class: 'contributorsList',
+        });
+        contributors.forEach(contributor => {
+          const contributors = createAndAppend('span', contributorsList, {
+            class: 'contributor',
+          });
+
+          createAndAppend('img', contributors, {
+            src: contributor.avatar_url,
+            class: 'avatars',
+          });
+
+          createAndAppend('a', contributors, {
+            text: contributor.login,
+            href: contributor.html_url,
+            class: 'login',
+          });
+
+          createAndAppend('p', contributors, {
+            text: contributor.contributions,
+            class: 'contributions',
+          });
+        });
+      } catch (error) {
+        return new Error(error.message);
+      }
     }
   }
-
   window.ContributorsView = ContributorsView;
 }

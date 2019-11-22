@@ -20,8 +20,8 @@
       this.container.innerHTML = '';
       if (error) {
         createAndAppend('div', this.container, {
-          text: error.message,
-          class: 'alert alert-error',
+          text: "Oooops, something went wrong!",
+          class: 'alert-error',
         });
       }
     }
